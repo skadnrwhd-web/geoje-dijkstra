@@ -1,0 +1,193 @@
+{
+  "created": "2026-10-25T15:12:14",
+  "config": {
+    "map_mode": "grid",
+    "start": {
+      "name": "광화문",
+      "name_en": "Gwanghwamun",
+      "lat": 37.5716,
+      "lon": 126.9769
+    },
+    "goal": {
+      "name": "사당역",
+      "name_en": "Sadang Stn",
+      "lat": 37.4765,
+      "lon": 126.9816
+    },
+    "seoul_map": {
+      "margin_km": 1.0,
+      "fit_panel_aspect": true,
+      "bbox": null,
+      "network_type": "drive",
+      "cache_dir": "maps",
+      "overpass_url": "",
+      "download_retries": 3
+    },
+    "grid_map": {
+      "cols": 34,
+      "rows": 80,
+      "spacing_m": 120,
+      "jitter": 0.28,
+      "remove_ratio": 0.12,
+      "oneway_ratio": 0.08,
+      "river": true,
+      "bridges": 4,
+      "seed": 7,
+      "start_frac": [
+        0.45,
+        0.04
+      ],
+      "goal_frac": [
+        0.55,
+        0.96
+      ]
+    },
+    "benchmark": {
+      "repeats": 7,
+      "time_tie_percent": 10.0
+    }
+  },
+  "graph": {
+    "mode": "grid",
+    "nodes": 2718,
+    "edges": 9073,
+    "source": "Synthetic grid city (no external data)",
+    "bbox": [
+      -32.966596918080576,
+      -33.456075777601676,
+      3993.418143369193,
+      9510.08604093311
+    ],
+    "cache_file": null
+  },
+  "start_node": 117,
+  "goal_node": 2600,
+  "results": {
+    "Dijkstra": {
+      "algorithm": "Dijkstra",
+      "found": true,
+      "cost_m": 10282.49947249829,
+      "expanded": 2605,
+      "edges_scanned": 8724,
+      "pushes": 2956,
+      "path_nodes": 89,
+      "cost_km": 10.282499472498289
+    },
+    "A*": {
+      "algorithm": "A*",
+      "found": true,
+      "cost_m": 10282.49947249829,
+      "expanded": 1582,
+      "edges_scanned": 5406,
+      "pushes": 2426,
+      "path_nodes": 89,
+      "cost_km": 10.282499472498289
+    }
+  },
+  "timing": {
+    "Dijkstra": {
+      "median_ms": 1.5966,
+      "min_ms": 1.4961,
+      "max_ms": 2.7696,
+      "runs_ms": [
+        1.6406,
+        1.5306,
+        1.5966,
+        1.5212,
+        1.4961,
+        1.7933,
+        2.7696
+      ]
+    },
+    "A*": {
+      "median_ms": 1.8579,
+      "min_ms": 1.7921,
+      "max_ms": 3.0715,
+      "runs_ms": [
+        1.9053,
+        3.0715,
+        3.0616,
+        1.7921,
+        1.8579,
+        1.8451,
+        1.8086
+      ]
+    }
+  },
+  "reference_cost_m": 10282.49947249829,
+  "optimal": {
+    "Dijkstra": true,
+    "A*": true
+  },
+  "verdict": {
+    "rows": [
+      {
+        "key": "cost",
+        "label": "경로 길이 (km)",
+        "dijkstra": 10.282499472498289,
+        "astar": 10.282499472498289,
+        "winner": "tie"
+      },
+      {
+        "key": "expanded",
+        "label": "탐색 노드 수",
+        "dijkstra": 2605,
+        "astar": 1582,
+        "winner": "A*"
+      },
+      {
+        "key": "time",
+        "label": "실행 시간 (ms)",
+        "dijkstra": 1.5966,
+        "astar": 1.8579,
+        "winner": "Dijkstra"
+      }
+    ],
+    "score": {
+      "Dijkstra": 1,
+      "A*": 1
+    },
+    "winner": "DRAW",
+    "time_gap_percent": 14.064266106894884,
+    "rule": "지표별 1점 (경로 길이·탐색 노드 수·실행 시간, 시간은 10% 이내 무승부)"
+  },
+  "environment": {
+    "python": "3.14.5",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+    "note": "실행 시간은 PC 성능·실행 환경에 따라 달라질 수 있습니다"
+  },
+  "video": {
+    "title": "DIJKSTRA vs A* | SEOUL ESCAPE",
+    "subtitle": "같은 지도 · 같은 출발지 · 같은 목적지",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30.0,
+    "duration_sec": 25,
+    "intro_sec": 3.0,
+    "path_sec": 1.5,
+    "result_sec": 6.0,
+    "nodes_per_frame": 6,
+    "output_dir": "output",
+    "filename": "",
+    "crf": 20,
+    "disclaimer": "※ 실행 시간은 PC 성능·실행 환경에 따라 달라질 수 있습니다",
+    "file": "output\\sample_grid.mp4",
+    "frames": 750,
+    "actual_duration_sec": 25.0
+  },
+  "style": {
+    "background": "#05070d",
+    "road": "#1d2a3e",
+    "road_major": "#2c3f5c",
+    "dijkstra": "#00e5ff",
+    "astar": "#ff2bd6",
+    "path": "#ffe600",
+    "start": "#39ff88",
+    "goal": "#ff3b3b",
+    "text": "#e8f1ff",
+    "muted": "#7f8ea8",
+    "font": "",
+    "font_bold": ""
+  }
+}

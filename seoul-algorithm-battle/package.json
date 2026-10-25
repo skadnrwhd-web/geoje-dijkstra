@@ -1,0 +1,16 @@
+{
+  "name": "seoul-algorithm-battle",
+  "version": "1.0.0",
+  "description": "SEOUL ESCAPE: Dijkstra vs A* — 브라우저 알고리즘 경주 게임 + 쇼츠 영상 제작기",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "node --test tests/*.test.js",
+    "fetch-map": "node tools/fetch-seoul-map.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}

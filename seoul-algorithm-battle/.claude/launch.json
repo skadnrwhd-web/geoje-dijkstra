@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "seoul-escape",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["server/server.js"],
+      "port": 8765
+    }
+  ]
+}

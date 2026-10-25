@@ -1,0 +1,8 @@
+streamlit
+numpy
+osmnx
+geopandas
+networkx
+requests
+pygame-ce
+imageio-ffmpeg
