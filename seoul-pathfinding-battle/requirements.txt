@@ -1,8 +1,0 @@
-osmnx>=2.0
-networkx>=3.2
-numpy>=1.26
-Pillow>=10.1
-matplotlib>=3.8
-streamlit>=1.50
-imageio-ffmpeg>=0.5
-pytest>=8.0
