@@ -9,7 +9,7 @@ Real Dijkstra algorithm spreading on the real road network of Geoje, South Korea
 [Demo](geoje_dijkstra.mp4)
 
 ### Demo
-- **Live App (Streamlit):** deploy link after step 2
+- **Live App (Streamlit):** [geoje-dijkstra.streamlit.app](https://geoje-dijkstra.streamlit.app/)
 - **Video:** `geoje_dijkstra.mp4` - 1080x1920 vertical shorts format
 
 ### Features
