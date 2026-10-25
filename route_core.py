@@ -2,9 +2,22 @@ import math
 import pickle
 from pathlib import Path
 
-# Geoje center
 GEOJE_CENTER = (34.8808, 128.6210)
 PLACE = "Geoje-si, Gyeongsangnam-do, South Korea"
+
+# 거제 주요 장소 - app.py에서 사용
+PLACES = {
+    "거제시청": (34.8808, 128.6210),
+    "장승포": (34.8596, 128.6338),
+    "옥포": (34.8850, 128.6875),
+    "고현": (34.8889, 128.6203),
+    "거제대교": (34.9370, 128.5880),
+    "학동몽돌해변": (34.7640, 128.6640),
+    "바람의언덕": (34.7390, 128.6500),
+    "외도": (34.7700, 128.7100),
+    "구조라해수욕장": (34.8190, 128.6570),
+    "지세포": (34.8460, 128.6950),
+}
 
 CACHE_DIR = Path(__file__).parent / "cache"
 CACHE_DIR.mkdir(exist_ok=True)
@@ -12,7 +25,6 @@ GRAPHML_PATH = CACHE_DIR / "geoje_drive.graphml"
 PICKLE_PATH = CACHE_DIR / "roadmap.pkl"
 
 def _try_load_cached_graph():
-    """Try to load cached graph from local files, no internet needed"""
     import osmnx as ox
     try:
         if GRAPHML_PATH.exists():
@@ -22,30 +34,32 @@ def _try_load_cached_graph():
         if PICKLE_PATH.exists():
             print(f"[cache] loading pickle {PICKLE_PATH}")
             with open(PICKLE_PATH, "rb") as f:
-                return pickle.load(f)
+                data = pickle.load(f)
+                # pickle may contain RoadMap or raw graph
+                if hasattr(data, 'G'):
+                    return data.G
+                return data
     except Exception as e:
         print(f"[cache] failed: {e}")
+        import traceback
+        traceback.print_exc()
     return None
 
 def _save_cache(G):
     try:
         import osmnx as ox
-        # save graphml for future offline use
         ox.save_graphml(G, GRAPHML_PATH)
         print(f"[cache] saved {GRAPHML_PATH}")
     except Exception as e:
         print(f"[cache] save failed: {e}")
 
 def _create_synthetic_grid():
-    """Fallback: if no internet at all, create a synthetic grid around Geoje"""
     import networkx as nx
     import osmnx as ox
     import random
     print("[fallback] creating synthetic Geoje grid (offline mode)")
-    # Create a grid-like graph mimicking Geoje
     G = nx.MultiDiGraph()
     G.graph["crs"] = "EPSG:4326"
-    # Geoje roughly 34.7-35.0 N, 128.5-128.8 E
     lat_min, lat_max = 34.75, 35.02
     lon_min, lon_max = 128.5, 128.85
     rows, cols = 25, 25
@@ -58,7 +72,6 @@ def _create_synthetic_grid():
             G.add_node(node_id, x=lon, y=lat)
             nodes[(r,c)] = node_id
             node_id += 1
-    # connect grid
     for r in range(rows):
         for c in range(cols):
             nid = nodes[(r,c)]
@@ -76,11 +89,9 @@ def _create_synthetic_grid():
 
 def load_osm_graph():
     import osmnx as ox
-    # 1. Try cache first (no internet)
     G = _try_load_cached_graph()
     if G is not None:
         return G
-    # 2. Try download (needs internet)
     try:
         print(f"[osmnx] downloading {PLACE}")
         G = ox.graph_from_place(PLACE, network_type="drive", simplify=True)
@@ -88,29 +99,20 @@ def load_osm_graph():
         return G
     except Exception as e:
         print(f"[osmnx] download failed: {e}")
-        # 3. Fallback synthetic
         return _create_synthetic_grid()
 
-# Compatibility wrapper for existing app.py
 class RoadMap:
     def __init__(self, G):
         self.G = G
         self.nodes = list(G.nodes)
-        # build adjacency for Dijkstra
-        import networkx as nx
         self.graph = {}
         for u in G.nodes:
             self.graph[u] = []
             for v, data in G[u].items():
-                # MultiDiGraph: data is dict of edge keys
                 for k, ed in data.items():
                     w = ed.get('length', 1.0)
                     self.graph[u].append((v, w))
 
-    def to_dict(self):
-        return {"graph": self.graph, "G": self.G}
-
 def load_roadmap(verbose=False):
     G = load_osm_graph()
-    # Ensure we have lat/lon for visualization
     return RoadMap(G)
