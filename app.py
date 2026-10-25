@@ -432,8 +432,8 @@ def search(query, lang):
 # 점 = {"kind": "preset"(목록) | "search"(검색) | "click"(지도 클릭), "name", "lat", "lon"}
 # ------------------------------------------------------------------
 def preset_point(name):
-    lat, lon = rc.PLACES[name]
-    return {"kind": "preset", "name": name, "lat": lat, "lon": lon}
+    lat, lon = rc.find_place(name)
+    return {"kind": "preset", "name": rc.PLACE_ALIASES.get(name, name), "lat": lat, "lon": lon}
 
 
 ss = st.session_state

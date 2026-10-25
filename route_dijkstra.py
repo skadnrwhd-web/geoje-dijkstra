@@ -79,7 +79,7 @@ C_CODE = [
 
 def point_from_place(name, lang=LANG):
     """route_core.PLACES 의 장소 이름 -> run() 에 넘길 점 {"lat", "lon", "label"}."""
-    lat, lon = rc.PLACES[name]
+    lat, lon = rc.find_place(name)
     return {"lat": lat, "lon": lon, "label": rc.place_name(name, lang)}
 
 

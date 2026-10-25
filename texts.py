@@ -130,7 +130,7 @@ TEXT = {
 #### 기능
 - **실제 도로 지도**: 거제시 자동차 도로 3,690개 교차로, 8,684개 도로 구간. 도로는 실제 모양대로 곡선으로 그림
 - **출발지·도착지 선택** (고르면 새 경로를 바로 계산)
-  - 목록: 거제 명소 7곳
+  - 목록: 거제 관광 명소 14곳(바람의 언덕, 신선대, 매미성, 공곶이, 해수욕장 등)과 시내·교통 4곳
   - 이름 검색: OSM에서 거제 안 장소를 찾음 (인터넷 필요)
   - 지도 클릭: 지도 아래 '출발 찍기' / '도착 찍기'를 누르고 원하는 곳을 클릭
   - 출발 ↔ 도착 바꾸기 버튼
@@ -270,7 +270,7 @@ on the real road network of Geoje, South Korea (OpenStreetMap).
 #### Features
 - **Real road map**: 3,690 intersections and 8,684 road segments of Geoje's drivable roads, drawn with their real curves
 - **Pick start and destination** (the route is recomputed right away)
-  - List: 7 Geoje landmarks
+  - List: 14 Geoje sights (Windy Hill, Sinseondae, Maemiseong, Gongotji, beaches, etc.) and 4 town/transport places
   - Name search: finds places in Geoje via OSM (needs internet)
   - Map click: press 'Pick start' / 'Pick dest.' under the map, then click a spot
   - Swap start ↔ destination button
