@@ -1,6 +1,6 @@
 # Geoje Dijkstra - Real Map Shortest Path Visualization
 
-[Python](https://img.shields.io/badge/Python-3.10%2B-blue) [Streamlit](https://img.shields.io/badge/Streamlit-1.40-red) [OSM](https://img.shields.io/badge/Map-OpenStreetMap-green)
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue) ![Streamlit](https://img.shields.io/badge/Built%20with-Streamlit-red) ![OSM](https://img.shields.io/badge/Map-OpenStreetMap-green)
 
 Real Dijkstra algorithm spreading on the real road network of Geoje, South Korea. Inspired by the viral Facebook Reel [Dijkstra on HCMC map](https://www.facebook.com/share/r/19u1DiymGH/?mibextid=wwXIfr).
 
