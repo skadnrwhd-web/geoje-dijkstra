@@ -563,6 +563,12 @@ with st.sidebar:
     st.subheader(T["pick_click"])
     st.caption(T["click_help"])
 
+    # 후원 링크
+    st.divider()
+    st.subheader(T["support_header"])
+    st.caption(T["support_note"])
+    st.link_button(T["support_btn"], "https://buymeacoffee.com/ujnam80")
+
 # ------------------------------------------------------------------
 # 본문
 # ------------------------------------------------------------------
