@@ -179,17 +179,22 @@ export default function (component) {
   let dpr = 1, cw = 1, ch = 1;              // 화면 배율, 캔버스 너비/높이 (CSS 픽셀)
   let view = old ? old.view : { s: 1, tx: 0, ty: 0 };   // 화면 = 미터 * s + t (경로가 바뀌어도 줌은 유지)
   let drawnView = "";                       // 숨은 캔버스를 그릴 때의 줌 상태 (바뀌면 다시 그림)
+  let fitted = !!(old && old.fitted);       // 지도 전체 맞춤을 한 번이라도 했나 (경로가 바뀌어도 유지)
   function fit() {                          // 지도 전체가 보이게 맞춘다
     const pad = 40, bottom = 110;           // 아래쪽은 버튼/문구 자리로 비워 둠
-    const s = Math.min((cw - 2 * pad) / data.w, (ch - pad - bottom) / data.h);
-    setView({ s, tx: (cw - data.w * s) / 2, ty: pad + (ch - pad - bottom - data.h * s) / 2 });
+    const aw = cw - 2 * pad, ah = ch - pad - bottom;   // 지도를 그릴 수 있는 가로/세로
+    // 화면이 아직 너무 작으면(숨김 탭, 로딩 중: 크기 0) 맞추지 않는다. 크기 0으로 계산하면
+    // 배율이 음수가 돼서 지도가 영영 안 그려졌다. 나중에 화면이 커지면 그때 맞춘다.
+    if (aw < 50 || ah < 50) return;
+    const s = Math.min(aw / data.w, ah / data.h);
+    setView({ s, tx: (cw - data.w * s) / 2, ty: pad + (ah - data.h * s) / 2 });
+    fitted = true; st.fitted = true;
   }
   function resize() {                       // 창 크기가 바뀌면 캔버스 크기도 맞춘다
     dpr = window.devicePixelRatio || 1;
-    const first = cw === 1 && !old;         // 맨 처음 한 번만 지도 전체에 맞춤
     cw = canvas.clientWidth; ch = canvas.clientHeight;
     canvas.width = Math.round(cw * dpr); canvas.height = Math.round(ch * dpr);
-    if (first) fit();
+    if (!fitted) fit();                     // 처음엔 화면이 충분히 커졌을 때 한 번만 전체 맞춤
   }
   resize();
   st.ro = new ResizeObserver(() => { if (!st.stop) resize(); });
@@ -327,6 +332,7 @@ export default function (component) {
     strokeSearch(search);
   }
   function draw() {
+    if (!(view.s > 0) || canvas.width < 2 || canvas.height < 2) return;   // 화면이 아직 준비 안 됐으면 건너뜀
     const v = `${view.s},${view.tx},${view.ty},${canvas.width},${canvas.height}`;
     if (v !== drawnView) { redrawLayers(); drawnView = v; }
     else if (fresh) strokeSearch(fresh);       // 줌 그대로면 새 길만 덧그림
